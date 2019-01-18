@@ -3,7 +3,7 @@
 Extract images from a PDF - Scan and Store the Meta Data in Azure
 
 | Argument         | Description                       |
-| -----------------|:---------------------------------:| 
+| -----------------|-----------------------------------| 
 | --account        | Azure Storage Account Name        | 
 | --key            | Azure Storage Key                 | 
 | --containter     | Azure Storage Container Name      | 

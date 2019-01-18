@@ -175,6 +175,7 @@ if __name__ == '__main__':
     argParser.add_argument('--key', help='The Azure Storage Key')
     argParser.add_argument('--container', help='The Azure Storage Container',
         default='council-books')
+ 
     argParser.add_argument('--ocrUrl', help='The OCR Url',
         default='https://australiaeast.api.cognitive.microsoft.com')
     argParser.add_argument('--ocrKey', help='The Key for the OCR service')
@@ -184,8 +185,7 @@ if __name__ == '__main__':
     argParser.add_argument('--folder', help='The Folder Name',
         default='books')
     argParser.add_argument('--volume', help='The Volume')
-    argParser.add_argument('--storageUrl', help='The Storage URL',
-        default='https://tsoblob1.blob.core.windows.net/')
+    argParser.add_argument('--storageUrl', help='The Storage URL')
 
     args = argParser.parse_args()
 
@@ -264,7 +264,7 @@ if __name__ == '__main__':
  
                     print('Image Saved: ' + jpeg_img_name)
 
-                    ocrData = ocrImage(service, args, "https://tsoblob1.blob.core.windows.net/" + 
+                    ocrData = ocrImage(service, args, args.storageUrl + 
                                       args.container + "/" + args.folder + "/" + args.volume + "/" +jpeg_img_name + '.jpeg',
                                       jpeg_img_name)
                     terms = []
@@ -293,23 +293,25 @@ if __name__ == '__main__':
                     data = xObject[obj].getData()
 
                     img = Image.frombytes(mode, size, data)
-                    img.save(obj[1:] + '_' + str(image_id) + ".png")
+                    # img.save(obj[1:] + '_' + str(image_id) + ".png")
                     image_id += 1
 
                 elif xObject[obj]['/Filter'] == '/DCTDecode':
                     data = xObject[obj].getData()
-
+                    '''
                     img = open(obj[1:] + '_' + str(image_id) + ".jpg", "wb")
                     img.write(data)
                     img.close()
+                    '''
                     image_id += 1
 
                 elif xObject[obj]['/Filter'] == '/JPXDecode':
                     data = xObject[obj].getData()
-
+                    ''' 
                     img = open(obj[1:] + '_' + str(image_id) + ".jp2", "wb")
                     img.write(data)
                     img.close()
+                    '''
                     image_id += 1
 
     print('Completed Image Scan')                
